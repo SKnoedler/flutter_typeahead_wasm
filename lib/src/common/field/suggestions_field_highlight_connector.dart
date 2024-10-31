@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/src/common/base/connector_widget.dart';
 import 'package:flutter_typeahead/src/common/base/suggestions_controller.dart';
 
@@ -50,12 +50,13 @@ class _SuggestionsFieldHighlightConnectorState<T>
   late final _selectOptionAction = _ConditionalCallbackAction<ActivateIntent>(
     onInvoke: (_) {
       int? index = widget.controller.highlighted;
-      if (index == null) return null;
-      T? highlighted = widget.controller.suggestions?.elementAtOrNull(
-        index,
-      );
-      if (highlighted == null) return null;
-      widget.controller.select(highlighted);
+      T? highlighted;
+      if (index != null) {
+        highlighted = widget.controller.suggestions?.elementAtOrNull(index);
+      }
+      if (highlighted != null) {
+        widget.controller.select(highlighted);
+      }
       widget.controller.unhighlight();
       return null;
     },
